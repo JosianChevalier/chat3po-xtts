@@ -25,7 +25,7 @@ class SpeechGenerator:
         )
 
         tensor = torch.tensor(out["wav"]) * 50
-        torchaudio.save(output_path, tensor.unsqueeze(0), 24000, overwrite=True)
+        torchaudio.save(output_path, tensor.unsqueeze(0), 24000)
 
 def load_model(config: Chat3POSpeechConfig):
     print("Loading model...")
