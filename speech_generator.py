@@ -13,8 +13,9 @@ class SpeechGenerator:
     model: Xtts
     conditional_latent: Tensor
     speaker_embedding: Tensor
+    volume: float
 
-    def generate(self, sentence: str, output_path: str, temperature: float, speed: float):
+    def generate(self, sentence: str, output_file_path: str, temperature: float, speed: float):
         out = self.model.inference(
             sentence,
             "fr",
@@ -24,8 +25,8 @@ class SpeechGenerator:
             speed=speed # Speed of the speech
         )
 
-        tensor = torch.tensor(out["wav"]) * 50
-        torchaudio.save(output_path, tensor.unsqueeze(0), 24000)
+        tensor = torch.tensor(out["wav"]) * self.volume
+        torchaudio.save(output_file_path, tensor.unsqueeze(0), 24000)
 
 def load_model(config: Chat3POSpeechConfig):
     print("Loading model...")
@@ -35,7 +36,12 @@ def load_model(config: Chat3POSpeechConfig):
     print("Computing speaker latents...")
     conditional_latent, speaker_embedding = model.get_conditioning_latents(audio_path=config.speaker_reference)
 
-    return SpeechGenerator(model=model, conditional_latent=conditional_latent, speaker_embedding=speaker_embedding)
+    return SpeechGenerator(
+        model=model,
+        conditional_latent=conditional_latent,
+        speaker_embedding=speaker_embedding,
+        volume=config.volume
+    )
 
 
 def load_xtts_model(config: Chat3POSpeechConfig):
@@ -47,7 +53,7 @@ def load_xtts_model(config: Chat3POSpeechConfig):
         checkpoint_path=config.xtts_model,
         vocab_path=config.xtts_vocab_file,
         use_deepspeed=False,
-        speaker_file_path=config.speaker_file_path
+        speaker_file_path=config.speaker_file_path,
     )
 
     if config.use_cuda:

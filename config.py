@@ -13,6 +13,7 @@ class Chat3POSpeechConfig:
     speaker_reference: List[str]
     output_folder: str
     use_cuda: bool
+    volume: float
 
 
 def parse_args() -> Chat3POSpeechConfig:
@@ -53,6 +54,12 @@ def parse_args() -> Chat3POSpeechConfig:
         default=False,
         help="Wether to use CUDA (should be true if the GPU is NVIDIA)"
     )
+    parser.add_argument(
+        "-v", "--volume",
+        type=float,
+        default=20,
+        help="The volume to apply to the generated speech. 1=normal. Note that the training set had a low volume."
+    )
 
     args = parser.parse_args()
 
@@ -66,7 +73,8 @@ def parse_args() -> Chat3POSpeechConfig:
         speaker_file_path="recipes/ljspeech/xtts_v1/run/training/GPT_XTTS_LJSpeech_FT/speakers_xtts.pth",
         speaker_reference=speaker_reference_files,
         output_folder=args.output_folder,
-        use_cuda=args.cuda
+        use_cuda=args.cuda,
+        volume=args.volume
     )
 
 
