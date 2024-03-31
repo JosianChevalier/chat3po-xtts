@@ -1,0 +1,9 @@
+# ignore generated output
+/output
+*.wav
+
+# the model is too heavy, it will be downloaded with a script
+/model/model.pth
+
+# intellij config files
+.idea
