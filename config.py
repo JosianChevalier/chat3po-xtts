@@ -6,6 +6,7 @@ from typing import List
 
 @dataclass
 class Chat3POSpeechConfig:
+    input: List[str]
     xtts_config_path: str
     xtts_vocab_file: str
     xtts_model: str
@@ -53,6 +54,13 @@ def parse_args() -> Chat3POSpeechConfig:
         default=False,
         help="Wether to use CUDA (should be true if the GPU is NVIDIA)"
     )
+    parser.add_argument(
+        "input",
+        default=['chat3po_lines.txt'],
+        type=str,
+        nargs = "+",
+        help="Sentences to generate, or files containing them."
+    )
 
     args = parser.parse_args()
 
@@ -60,6 +68,7 @@ def parse_args() -> Chat3POSpeechConfig:
 
     # Return the configuration dictionary
     return Chat3POSpeechConfig(
+        input=args.input,
         xtts_config_path=args.xtts_config_path,
         xtts_vocab_file=args.xtts_vocab_file,
         xtts_model=args.xtts_model,
