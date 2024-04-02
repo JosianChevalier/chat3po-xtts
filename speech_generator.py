@@ -13,7 +13,6 @@ class SpeechGenerator:
     model: Xtts
     conditional_latent: Tensor
     speaker_embedding: Tensor
-    volume: float
 
     def generate(self, sentence: str, output_file_path: str, temperature: float, speed: float):
         out = self.model.inference(
@@ -25,8 +24,7 @@ class SpeechGenerator:
             speed=speed # Speed of the speech
         )
 
-        tensor = torch.tensor(out["wav"]) * self.volume
-        torchaudio.save(output_file_path, tensor.unsqueeze(0), 24000)
+        torchaudio.save(output_file_path, torch.tensor(out["wav"]).unsqueeze(0), 24000)
 
 def load_model(config: Chat3POSpeechConfig):
     print("Loading model...")
@@ -40,7 +38,6 @@ def load_model(config: Chat3POSpeechConfig):
         model=model,
         conditional_latent=conditional_latent,
         speaker_embedding=speaker_embedding,
-        volume=config.volume
     )
 
 
