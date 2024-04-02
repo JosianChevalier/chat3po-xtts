@@ -12,7 +12,7 @@ class Chat3POSpeechConfig:
     xtts_model: str
     speaker_file_path: str
     speaker_reference: List[str]
-    output_folder: str
+    destination: str
     use_cuda: bool
 
 
@@ -43,10 +43,10 @@ def parse_args() -> Chat3POSpeechConfig:
         help="Path to speaker reference folder or file "
     )
     parser.add_argument(
-        "--output-folder",
+        "-d", "--destination",
         type=str,
         default="./output",
-        help="Output folder"
+        help="Destination folder"
     ),
     parser.add_argument(
         "--cuda",
@@ -74,7 +74,7 @@ def parse_args() -> Chat3POSpeechConfig:
         xtts_model=args.xtts_model,
         speaker_file_path="recipes/ljspeech/xtts_v1/run/training/GPT_XTTS_LJSpeech_FT/speakers_xtts.pth",
         speaker_reference=speaker_reference_files,
-        output_folder=args.output_folder,
+        destination=args.destination,
         use_cuda=args.cuda,
     )
 
