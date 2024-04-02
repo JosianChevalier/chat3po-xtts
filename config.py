@@ -14,6 +14,7 @@ class Chat3POSpeechConfig:
     speaker_reference: List[str]
     destination: str
     use_cuda: bool
+    variations_count: int
 
 
 def parse_args() -> Chat3POSpeechConfig:
@@ -55,6 +56,12 @@ def parse_args() -> Chat3POSpeechConfig:
         help="Wether to use CUDA (should be true if the GPU is NVIDIA)"
     )
     parser.add_argument(
+        "-n", "--variations-count",
+        type=int,
+        default=10,
+        help="How many variations to generate for each speech."
+    )
+    parser.add_argument(
         "input",
         default=['chat3po_lines.txt'],
         type=str,
@@ -76,6 +83,7 @@ def parse_args() -> Chat3POSpeechConfig:
         speaker_reference=speaker_reference_files,
         destination=args.destination,
         use_cuda=args.cuda,
+        variations_count=args.variations_count,
     )
 
 

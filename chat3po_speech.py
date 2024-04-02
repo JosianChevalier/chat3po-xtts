@@ -30,7 +30,7 @@ def generate_speech():
     for speech in speeches_to_generate:
         print(f'Generating speech for "{speech}"')
 
-        for iteration in range(10):
+        for iteration in range(config.variations_count):
             output_file_path = f'{config.destination}/{filename_for(speech, iteration)}'
             speech_generator.generate(speech, output_file_path, temperature=0.8, speed=1)
 
