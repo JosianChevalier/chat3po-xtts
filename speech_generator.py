@@ -24,7 +24,7 @@ class SpeechGenerator:
             self.speaker_embedding,
             temperature=temperature, # Variability of the output. The higher, the more variable
             speed=speed, # Speed of the speech
-            repetition_penalty = 5.0,
+            repetition_penalty=2.0,
         )
 
         torchaudio.save(output_file_path, torch.tensor(out["wav"]).unsqueeze(0), 24000)
@@ -50,16 +50,16 @@ class ModelConfig:
 
 
 def model_files_from(model: Model):
+    local_folder = os.path.expanduser("~/.local")
+
     if model == Model.CUSTOM_C3PO:
         return ModelConfig(
             xtts_config_path="./model/config.json",
             xtts_vocab_file = "./model/vocab.json",
             xtts_model = "./model/model.pth",
-            speaker_file_path = "recipes/ljspeech/xtts_v1/run/training/GPT_XTTS_LJSpeech_FT/speakers_xtts.pth",
-
+            speaker_file_path=f"{local_folder}/share/tts/tts_models--multilingual--multi-dataset--xtts_v2/speakers_xtts.pth",
         )
     elif model == Model.XTTS_V2:
-        local_folder = os.path.expanduser("~/.local")
         return ModelConfig(
             xtts_config_path=f"{local_folder}/share/tts/tts_models--multilingual--multi-dataset--xtts_v2/config.json",
             xtts_vocab_file=f"{local_folder}/share/tts/tts_models--multilingual--multi-dataset--xtts_v2/vocab.json",
