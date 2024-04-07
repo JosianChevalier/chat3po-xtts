@@ -15,6 +15,8 @@ class Chat3POSpeechConfig:
     destination: str
     use_cuda: bool
     variations_count: int
+    speed: float
+    temperature: float
 
 
 def parse_args() -> Chat3POSpeechConfig:
@@ -62,6 +64,18 @@ def parse_args() -> Chat3POSpeechConfig:
         help="How many variations to generate for each speech."
     )
     parser.add_argument(
+        "-s", "--speed",
+        type=float,
+        default=1,
+        help="The speed of the speech."
+    )
+    parser.add_argument(
+        "-t", "--temperature",
+        type=float,
+        default=0.7,
+        help="Level of variance of the outputs. Lower is more stable."
+    )
+    parser.add_argument(
         "input",
         default=['chat3po_lines.txt'],
         type=str,
@@ -84,6 +98,8 @@ def parse_args() -> Chat3POSpeechConfig:
         destination=args.destination,
         use_cuda=args.cuda,
         variations_count=args.variations_count,
+        speed=args.speed,
+        temperature=args.temperature,
     )
 
 

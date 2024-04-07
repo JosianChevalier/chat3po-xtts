@@ -32,7 +32,7 @@ def generate_speech():
 
         for iteration in range(config.variations_count):
             output_file_path = f'{config.destination}/{filename_for(speech, iteration)}'
-            speech_generator.generate(speech, output_file_path, temperature=0.8, speed=1)
+            speech_generator.generate(speech, output_file_path, temperature=config.temperature, speed=config.speed)
 
 
 if __name__ == "__main__":
