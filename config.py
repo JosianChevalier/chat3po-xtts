@@ -7,10 +7,6 @@ from typing import List
 @dataclass
 class Chat3POSpeechConfig:
     input: List[str]
-    xtts_config_path: str
-    xtts_vocab_file: str
-    xtts_model: str
-    speaker_file_path: str
     speaker_reference: List[str]
     destination: str
     use_cuda: bool
@@ -21,24 +17,6 @@ class Chat3POSpeechConfig:
 
 def parse_args() -> Chat3POSpeechConfig:
     parser = argparse.ArgumentParser(description="Configure TTS model")
-    parser.add_argument(
-        "--xtts-config-path",
-        type=str,
-        default="./model/config.json",
-        help="Path to xtts config file"
-    )
-    parser.add_argument(
-        "--xtts-vocab-file",
-        type=str,
-        default="./model/vocab.json",
-        help="Path to xtts vocab file"
-    )
-    parser.add_argument(
-        "--xtts-model",
-        type=str,
-        default="./model/model.pth",
-        help="Path to xtts model"
-    )
     parser.add_argument(
         "--speaker-reference",
         type=str,
@@ -90,10 +68,6 @@ def parse_args() -> Chat3POSpeechConfig:
     # Return the configuration dictionary
     return Chat3POSpeechConfig(
         input=args.input,
-        xtts_config_path=args.xtts_config_path,
-        xtts_vocab_file=args.xtts_vocab_file,
-        xtts_model=args.xtts_model,
-        speaker_file_path="recipes/ljspeech/xtts_v1/run/training/GPT_XTTS_LJSpeech_FT/speakers_xtts.pth",
         speaker_reference=speaker_reference_files,
         destination=args.destination,
         use_cuda=args.cuda,

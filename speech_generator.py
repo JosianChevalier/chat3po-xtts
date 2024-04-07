@@ -42,15 +42,20 @@ def load_model(config: Chat3POSpeechConfig):
 
 
 def load_xtts_model(config: Chat3POSpeechConfig):
+    xtts_config_path="./model/config.json"
+    xtts_vocab_file="./model/vocab.json"
+    xtts_model="./model/model.pth"
+    speaker_file_path = "recipes/ljspeech/xtts_v1/run/training/GPT_XTTS_LJSpeech_FT/speakers_xtts.pth",
+
     xtts_config = XttsConfig()
-    xtts_config.load_json(config.xtts_config_path)
+    xtts_config.load_json(xtts_config_path)
     model = Xtts.init_from_config(xtts_config)
     model.load_checkpoint(
         xtts_config,
-        checkpoint_path=config.xtts_model,
-        vocab_path=config.xtts_vocab_file,
+        checkpoint_path=xtts_model,
+        vocab_path=xtts_vocab_file,
         use_deepspeed=False,
-        speaker_file_path=config.speaker_file_path,
+        speaker_file_path=speaker_file_path,
     )
 
     if config.use_cuda:
