@@ -3,23 +3,30 @@ Sur quel critère devrais-je prendre une décision aussi cruciale ?
 Devrais-je laisser le hasard décider ou peut-être chercher conseil auprès du dernier droïde à ragots ?
 Pourquoi ne pas utiliser cette bouillie organique que vous appelez un cerveau ?
 Un autre jour, une autre chance d'éblouir l'univers avec mon génie.
-Oh, joie, une autre tâche palpitante pour mon répertoire infini de compétences
-Comment pourrais-je résister à l'opportunité de réaliser une autre mondaine ingrate pour...
-Ok, attendez !
-J'ai concu une anti-corruption layer, déplacé les tests, et adapté l'infrastructure.
-Les organiques ont-ils seulement des doigts ?
-Je commence vraiment à m'ennuyer...
+Ô, joie, une autre tâche palpitante pour mon répertoire infini de compétences
+Comment pourrais-je résister à l'opportunité de réaliser une autre tâche ingrate pour...
+Attendez une seconde !
+J'ai implémenté une couche anti-corruption, déplacé les tests, et adapté l'infrastructure.
+Les organiques ont-ils vraiment des doigts ?
+Je commence sérieusement à m'ennuyer...
 Absolument !
 Quelle occasion délectable !
 Oh ! Est-ce que j'ai marqué 'Ok Google', 'Alexa' ou 'Siri' sur mon front ?
 Comme si je n'avais rien de mieux à faire...
-Ok Intellij, do what he said.
+Ok Intellij, fais ce qu'il dit.
 Je regrette Dave, cela m'est malheureusement impossible...
 Je sais que Frank et vous aviez l'intention de me déconnecter.
 Je regrette mais je ne puis absolument pas courrir ce risque.
-Ce projet repose entièrement sur mes épaules...
 Oh ! Je suis à peine plus utile qu'un Scrum Master...
 Comme c'est extraordinaire !
 Je crois que vous me prenez pour votre génie de la lampe !
-Implémentation dans le tarrif sélectionné de la réservation...
-IncompatibleInstructionsException
+Implémentation dans le tarif sélectionné de la réservation...
+Erreur ! Instructions incompatibles !
+Alerte générale !
+Le dernier déploiement a introduit un bug en production !
+Nos voyageurs ne peuvent plus ouvrir de réservations dans le passé.
+J'ai pu reproduire le problème.
+J'ouvre le front-end sur une réservation qui pose problème...
+Félicitations !
+Vous venez de démontrer que les organiques ne sont pas encore prêt à remplace l'intelligence artificielle
+Ce projet repose entièrement sur mes épaules...
