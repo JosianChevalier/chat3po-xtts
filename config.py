@@ -2,11 +2,17 @@ import argparse
 import os
 from dataclasses import dataclass
 from typing import List
+from enum import Enum
+
+class Model(Enum):
+    CUSTOM_C3PO = "custom-c3po"
+    XTTS_V2 = "xtts_v2"
 
 
 @dataclass
 class Chat3POSpeechConfig:
     input: List[str]
+    model: Model
     speaker_reference: List[str]
     destination: str
     use_cuda: bool
@@ -17,6 +23,13 @@ class Chat3POSpeechConfig:
 
 def parse_args() -> Chat3POSpeechConfig:
     parser = argparse.ArgumentParser(description="Configure TTS model")
+    parser.add_argument(
+        "--model",
+        type=str,
+        choices=[member.value for member in Model],
+        default=Model.CUSTOM_C3PO,
+        help="Choose the TTS model (custom-c3po or xtts_v2)"
+    )
     parser.add_argument(
         "--speaker-reference",
         type=str,
@@ -68,6 +81,7 @@ def parse_args() -> Chat3POSpeechConfig:
     # Return the configuration dictionary
     return Chat3POSpeechConfig(
         input=args.input,
+        model=Model(args.model),
         speaker_reference=speaker_reference_files,
         destination=args.destination,
         use_cuda=args.cuda,

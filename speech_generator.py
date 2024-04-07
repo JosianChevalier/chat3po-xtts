@@ -1,3 +1,4 @@
+import os
 from dataclasses import dataclass
 
 from TTS.tts.configs.xtts_config import XttsConfig
@@ -6,7 +7,8 @@ from torch import Tensor
 import torch
 import torchaudio
 
-from config import Chat3POSpeechConfig
+from config import Chat3POSpeechConfig, Model
+
 
 @dataclass
 class SpeechGenerator:
@@ -21,14 +23,13 @@ class SpeechGenerator:
             self.conditional_latent,
             self.speaker_embedding,
             temperature=temperature, # Variability of the output. The higher, the more variable
-            speed=speed # Speed of the speech
+            speed=speed, # Speed of the speech
+            repetition_penalty = 5.0,
         )
 
         torchaudio.save(output_file_path, torch.tensor(out["wav"]).unsqueeze(0), 24000)
 
 def load_model(config: Chat3POSpeechConfig):
-    print("Loading model...")
-
     model = load_xtts_model(config)
 
     print("Computing speaker latents...")
@@ -40,22 +41,47 @@ def load_model(config: Chat3POSpeechConfig):
         speaker_embedding=speaker_embedding,
     )
 
+@dataclass
+class ModelConfig:
+    xtts_config_path: str
+    xtts_vocab_file: str
+    xtts_model: str
+    speaker_file_path: str
+
+
+def model_files_from(model: Model):
+    if model == Model.CUSTOM_C3PO:
+        return ModelConfig(
+            xtts_config_path="./model/config.json",
+            xtts_vocab_file = "./model/vocab.json",
+            xtts_model = "./model/model.pth",
+            speaker_file_path = "recipes/ljspeech/xtts_v1/run/training/GPT_XTTS_LJSpeech_FT/speakers_xtts.pth",
+
+        )
+    elif model == Model.XTTS_V2:
+        local_folder = os.path.expanduser("~/.local")
+        return ModelConfig(
+            xtts_config_path=f"{local_folder}/share/tts/tts_models--multilingual--multi-dataset--xtts_v2/config.json",
+            xtts_vocab_file=f"{local_folder}/share/tts/tts_models--multilingual--multi-dataset--xtts_v2/vocab.json",
+            xtts_model=f"{local_folder}/share/tts/tts_models--multilingual--multi-dataset--xtts_v2/model.pth",
+            speaker_file_path=f"{local_folder}/share/tts/tts_models--multilingual--multi-dataset--xtts_v2/speakers_xtts.pth",
+        )
+    else:
+        print("Unknown model:", model)
 
 def load_xtts_model(config: Chat3POSpeechConfig):
-    xtts_config_path="./model/config.json"
-    xtts_vocab_file="./model/vocab.json"
-    xtts_model="./model/model.pth"
-    speaker_file_path = "recipes/ljspeech/xtts_v1/run/training/GPT_XTTS_LJSpeech_FT/speakers_xtts.pth",
+    print(f"Loading model {config.model.value}...")
+    model_files = model_files_from(config.model)
 
     xtts_config = XttsConfig()
-    xtts_config.load_json(xtts_config_path)
+    xtts_config.load_json(model_files.xtts_config_path)
     model = Xtts.init_from_config(xtts_config)
     model.load_checkpoint(
         xtts_config,
-        checkpoint_path=xtts_model,
-        vocab_path=xtts_vocab_file,
+        checkpoint_path=model_files.xtts_model,
+        vocab_path=model_files.xtts_vocab_file,
         use_deepspeed=False,
-        speaker_file_path=speaker_file_path,
+        speaker_file_path=model_files.speaker_file_path,
     )
 
     if config.use_cuda:
