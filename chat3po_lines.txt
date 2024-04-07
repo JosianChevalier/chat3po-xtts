@@ -14,7 +14,7 @@ Quelle occasion délectable !
 Oh ! Est-ce que j'ai marqué 'Ok Google', 'Alexa' ou 'Siri' sur mon front ?
 Comme si je n'avais rien de mieux à faire...
 Ok Intellij, fais ce qu'il dit.
-Je regrette Dave, cela m'est malheureusement impossible...
+Je regrette, Dave. Cela m'est malheureusement impossible.
 Je sais que Frank et vous aviez l'intention de me déconnecter.
 Je regrette mais je ne puis absolument pas courrir ce risque.
 Oh ! Je suis à peine plus utile qu'un Scrum Master...
@@ -25,8 +25,7 @@ Erreur ! Instructions incompatibles !
 Alerte générale !
 Le dernier déploiement a introduit un bug en production !
 Nos voyageurs ne peuvent plus ouvrir de réservations dans le passé.
-J'ai pu reproduire le problème.
-J'ouvre le front-end sur une réservation qui pose problème...
+J'ai pu reproduire le bug, voici ce que ça donne dans l'application.
 Félicitations !
-Vous venez de démontrer que les organiques ne sont pas encore prêt à remplace l'intelligence artificielle
-Ce projet repose entièrement sur mes épaules...
+Vous venez de démontrer que les organiques ne sont pas encore prêt à remplacer l'intelligence artificielle
+Ce projet repose entièrement sur mes épaules.
