@@ -5,7 +5,7 @@ from speech_generator import load_model
 from output_formatting import filename_for
 from config import config
 
-def destination_path_exists():
+def ensure_destination_path_exists():
     if not os.path.exists(config.destination):
         os.makedirs(config.destination)
 
@@ -22,7 +22,7 @@ def speeches_to_generate_from(input: List[str]):
 
 
 def generate_speech():
-    destination_path_exists()
+    ensure_destination_path_exists()
 
     speeches_to_generate = speeches_to_generate_from(config.input)
     speech_generator = load_model(config)
